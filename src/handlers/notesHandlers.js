@@ -1,4 +1,4 @@
-const { createNote, getAllNotes, getNoteById, deleteNote } = require("../controllers/controllersNote")
+const { createNote, getAllNotes, getNoteById, deleteNote, updateNote } = require("../controllers/controllersNote")
 
 const createNoteHandler = async (req, res) => {
     try {
@@ -38,6 +38,27 @@ const getNotesByIdHandler = async (req, res) => {
         console.log(error);
         res.status(500).json({ error: "Error al buscar por id" })
     }
+}
+
+const updatedNote = async (req, res) => {
+    const { id } = req.params;
+    const { updatedTitle, updatedContent } = req.body;
+    const updatedNote = await updateNote(id, updatedTitle, updatedContent)
+    try {
+        const { id } = req.params;
+        const { updatedTitle, updatedContent } = req.body;
+        const updatedNote = await updateNote(id, updatedTitle, updatedContent);
+    
+        if (updatedNote) {
+          res.status(200).json({ msg: "Nota actualizada con éxito", updatedNote });
+        } else {
+          res.status(404).json("Nota no encontrada");
+        }
+      } catch (error) {
+        console.log(error);
+        res.status(500).json("Error al actualizar la nota");
+      }
+
 }
 
 const deleteNoteHandler = async (req, res) => {
