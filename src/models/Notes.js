@@ -14,6 +14,10 @@ module.exports = (sequelize) => {
         content: {
             type: DataTypes.TEXT,
             allowNull: false
+        },
+        isDelete: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     }, { timestamps: false })
 }
